@@ -1,2 +1,2 @@
-# cypress_and_cuucmber
+# cypress_and_cucumber
 Proyecto base de cypress con cucumber
