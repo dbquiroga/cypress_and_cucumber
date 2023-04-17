@@ -25,10 +25,11 @@ module.exports = defineConfig({
     defaultCommandTimeout: 10000, //10seg
     watchForFileChanges: false,
     baseUrl: 'https://www.demoblaze.com/index.html',
+    blacklistUrl:'https://www.demoblaze.com/index.html/',
     video: true,
     videosFolder: "cypress/videos",
     screenshotOnRunFailure: true,
     screenshotsFolder: "cypress/screenshots",
-    specPattern:"cypress/e2e/features/*.feature"
+    specPattern: "**/*.feature",
   },
 });
