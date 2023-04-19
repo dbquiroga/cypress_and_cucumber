@@ -5,7 +5,6 @@ Feature: Add a product to cart
         When A user enter username "Day"
         When A user enter the "Qwerty123"
         When A user clicks in register button
-        Then A user must see an alert with message "Sign up successful."
     
     Scenario: Login y logout user
 

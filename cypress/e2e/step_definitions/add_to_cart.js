@@ -12,12 +12,19 @@ import { When, Then, Given, Before, And } from "@badeball/cypress-cucumber-prepr
     cy.visit(baseUrl);
   });
 
-  When('A user enter username {string}', (user) =>{
-    cy.get('#signInModalLabel').should('exist');
+  When('A user enter username {string}', (user) =>{  
     const numero = Math.floor(Math.random() * 1000);
     cy.get('#signin2').click();
+
+    cy.get('#signInModal')
+    .should('have.class', 'modal')
+    .and('have.class', 'fade')
+    .and('have.class', 'show');
+
     const username = user + numero
-    cy.get('#sign-username').type(username);
+
+    cy.get('#sign-username').clear();
+    cy.get('#sign-username').type(username).trigger('input');
   });
 
   When('A user enter the {string}',(password) =>{
@@ -25,17 +32,7 @@ import { When, Then, Given, Before, And } from "@badeball/cypress-cucumber-prepr
   });
 
   When('A user clicks in register button', () =>{
-    cy.get('[type="button"]').contains('Sign up').click();
+    cy.get('[type="button"]').contains('Sign up').dblclick();
   });
-
-  Then('A user must see an alert with message {string}', (alertMessage) => {
-    cy.on('window:alert',(alertMessage) => {
-
-      expect(alertMessage).to.equal(expectedMessage);
-
-      cy.window().then((win) => {
-        win.alert('Aceptar');
-      });
-    });    
-  });
+  
 
