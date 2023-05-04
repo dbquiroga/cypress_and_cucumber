@@ -18,5 +18,8 @@ Feature: Add a product to cart
 
 
     Scenario: Agregar una laptop al carrito
-    //Comprobar que se agregó al carrito.
+        When A user clicks on the button Laptops
+        When A user clicks on the first laptop
+        When A user cliclk on "Add to cart"
+        Then An alert should appears with text "Product added."
 

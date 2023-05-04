@@ -83,6 +83,11 @@ let username = user + numero;
     });
   });
 
+  When('A user clicks on the button Laptops',() => {
+    cy.get('div.list-group').eq(2)
+    .click();
+  });
+
 
 
 
