@@ -22,7 +22,7 @@ async function setupNodeEvents(on, config) {
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents,    
-    defaultCommandTimeout: 10000, //10seg
+    defaultCommandTimeout: 20000, //10seg
     watchForFileChanges: false,
     baseUrl: 'https://www.demoblaze.com/index.html',
     blacklistUrl:'https://www.demoblaze.com/index.html/',

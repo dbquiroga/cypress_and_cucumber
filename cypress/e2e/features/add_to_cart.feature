@@ -20,6 +20,7 @@ Feature: Add a product to cart
     Scenario: Agregar una laptop al carrito
         When A user clicks on the button Laptops
         When A user clicks on the first laptop
-        When A user cliclk on "Add to cart"
+        Then The url should contains a query string
+        When A user click on Add to cart
         Then An alert should appears with text "Product added."
 

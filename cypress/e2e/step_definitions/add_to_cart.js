@@ -84,11 +84,28 @@ let username = user + numero;
   });
 
   When('A user clicks on the button Laptops',() => {
-    cy.get('div.list-group').eq(2)
-    .click();
+    cy.get(`[onclick="byCat('notebook')"]`)
+    .click(); 
+
+    cy.wait(1000)
   });
 
+  When('A user clicks on the first laptop', ()=> {
+    cy.get('#tbodyid div a').first()
+    .click()
+  });
 
+  Then('The url should contains a query string', () => {
+    cy.url().should('include', 'idp');
+  });
 
+  When('A user click on Add to cart', () => {
+    cy.wait(1000)
+    cy.get('a').contains('Add to cart') 
+  });
 
-
+  Then('An alert should appears with text {string}', (alertProductAdded) => {
+    cy.on('window:alert', (str) => {
+      expect(str).should('contain', alertProductAdded)
+    });
+  });
