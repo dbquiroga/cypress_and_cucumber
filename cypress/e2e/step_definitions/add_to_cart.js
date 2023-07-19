@@ -1,6 +1,8 @@
 import { When, Then, Given, Before, And } from "@badeball/cypress-cucumber-preprocessor";
-/// <reference types="cypress" />
+import { Login } from '../support/pages/login.page.js'
+const baseUrl = Cypress.config().baseUrl;
 
+const loginPage = new Login();
 let datosFixture;
 let numero = Math.floor(Math.random() * 1000);
 let user = 'Day';
@@ -13,74 +15,55 @@ let username = user + numero;
   });
 
   Given('A user opens the demo blaze page', () =>{
-    const baseUrl = Cypress.config().baseUrl; // Obtiene la URL base sin la barra al final
     cy.visit(baseUrl);
   });
 
-  When('A user enter username', (user) =>{  
-    cy.get('#signin2').click();
-
-    cy.get('#signInModal')
-    .should('have.class', 'modal')
-    .and('have.class', 'fade')
-    .and('have.class', 'show');
-
-    cy.get('#sign-username').clear();
-    cy.get('#sign-username').type(username).trigger('input');
+  When('A user enter username', () =>{  
+    loginPage.clickNavbarSignin()
+    cy.get(loginPage.signinModal).should('be.visible');
+    loginPage.typeUser(username)
   });
 
   When('A user enter the {string}',(password) =>{
-    cy.get('#sign-password').type(password);
+    loginPage.typePass(password);
   });
 
   When('A user clicks in register button', () =>{
-    cy.get('[type="button"]').contains('Sign up').dblclick();
+    loginPage.clickSignupBtn()
   });
 
   Then('The registration modal should not be visible',()=>{
-    cy.get('#signInModal')
-    .should('have.class', 'modal')
-    .and('have.class', 'fade')
-    .and('not.have.class', 'show');
+    cy.get(loginPage.signinModal).should('not.be.visible', { timeout: 7000 });
   });
-  
+
   Given('A user should click on login btn', () => {
-    cy.get('#login2').click() 
+    loginPage.clickNavbarLogin()
   });
 
   Then('Opens the modal of Login',() => {
-    cy.get('#logInModal')
-    .should('have.class', 'modal')
-    .and('have.class', 'fade')
-    .and('have.class', 'show');
+    cy.get(loginPage.loginModal).should('be.visible')
   });
 
   When('A user enter the username as register',() =>{
-    cy.get('#loginusername').clear();
-    cy.get('#loginusername').type(username);
+    loginPage.clearLoginUsername()
+    loginPage.typeUser(username)
   });
 
   When('A user enter the login password {string}',(password) =>{
-    cy.get('#loginpassword').type(password);
+    loginPage.typrePass(password)
   });
 
   When ('A user clicks in log in button', () => {
-    cy.get('[type="button"]').contains('Log in').click();
+    loginPage.clickLogin();
   });
 
   Then('The login modal should not be visible', () => {
-    cy.get('#logInModal')
-    .should('have.class', 'modal')
-    .and('have.class', 'fade')
-    .and('not.have.class', 'show');
+    cy.get(loginPage.loginModal).should('not.be.visible', { timeout: 7000 });
   });
 
   Then('the navbar should have the name of the user', () => {
-    cy.get('#nameofuser')
-    .should('have.text', `Welcome ${username}`)
-    .invoke('text').then((linktext) =>{
-      expect(linktext).to.equal(`Welcome ${username}`);
-    });
+    cy.get(loginPage.nameUser)
+    .should('have.text', `Welcome ${username}`);
   });
 
   When('A user clicks on the button Laptops',() => {
